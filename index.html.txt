@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>เกมพิชิตดนตรีไทย</title>
+<style>
+body{
+font-family: Tahoma;
+background:#f0f9ff;
+padding:20px;
+}
+.container{
+max-width:700px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:15px;
+}
+.choice{
+background:#e0e7ff;
+margin:8px 0;
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+}
+.choice:hover{background:#c7d2fe;}
+button{
+margin-top:15px;
+padding:10px;
+border:none;
+border-radius:8px;
+background:#4f46e5;
+color:white;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h2>🎮 เกมพิชิตดนตรีไทย</h2>
+<div id="quiz"></div>
+<div id="score"></div>
+<button onclick="nextQuestion()">ข้อถัดไป</button>
+</div>
+
+<script>
+const questions = [
+{q:"ดนตรีไทยมีวัตถุประสงค์หลักเพื่ออะไร",
+choices:["การแข่งขัน","พิธีกรรมและการแสดง","การค้า","ความบันเทิงอย่างเดียว"],answer:1},
+{q:"ระนาดมีต้นกำเนิดจากประเทศใด",
+choices:["ไทย","จีน","เวียดนาม","อินเดีย"],answer:2}
+];
+
+let current=0,score=0;
+
+function loadQuestion(){
+if(current>=questions.length){
+document.getElementById("quiz").innerHTML="🎉 จบเกมแล้ว";
+document.getElementById("score").innerHTML="คะแนน: "+score;
+return;
+}
+let q=questions[current];
+let html=`<p>${current+1}. ${q.q}</p>`;
+q.choices.forEach((c,i)=>{
+html+=`<div class='choice' onclick='check(${i})'>${c}</div>`;
+});
+document.getElementById("quiz").innerHTML=html;
+}
+
+function check(i){
+if(i===questions[current].answer){score+=10;}
+document.getElementById("score").innerText="คะแนน: "+score;
+}
+
+function nextQuestion(){current++;loadQuestion();}
+loadQuestion();
+</script>
+</body>
+</html>
